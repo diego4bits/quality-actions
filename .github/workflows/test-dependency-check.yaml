@@ -28,6 +28,9 @@ jobs:
       # ─────────────── Show the report content ─────────────
       - name: List report files
         run: |
-          echo "Report directory: /github/workspace"
+          echo "Report directory: ${{ github.workspace }}"
           ls ${{ github.workspace }}
-
+      - name: List report files
+        run: |
+          cd ${{ github.workspace }}
+          cat dependency-check-report.html
