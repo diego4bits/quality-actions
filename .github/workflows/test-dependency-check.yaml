@@ -3,7 +3,7 @@ name: Dependency-Check – Test run
 on:
   workflow_dispatch:
   push:   # run it manually from the Actions tab
-
+permissions: write-all
 jobs:
   scan:
     runs-on: ubuntu-latest
@@ -14,7 +14,6 @@ jobs:
 
       # ─────────────── Run the custom Action ───────────────
       - name: OWASP Dependency-Check
-        permissions: write-all
         id: depcheck
         uses: ./.github/actions/dependency-check      # if the Action lives in this repo;
                               # otherwise use   owner/repo@vX
