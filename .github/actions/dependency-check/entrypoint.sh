@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-scan_args="$INPUT_SCAN_ARGS"
+scan_args="$1"
 out_path="/github/workspace"
 
 /usr/share/dependency-check/bin/dependency-check.sh \
