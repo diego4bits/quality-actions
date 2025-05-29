@@ -3,7 +3,7 @@ set -euo pipefail
 
 scan_args="$1"
 out_path="/github/workspace"
-
+touch prueba.txt
 /usr/share/dependency-check/bin/dependency-check.sh \
       $scan_args \
       --out " "
