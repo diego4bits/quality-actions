@@ -29,6 +29,5 @@ jobs:
       - name: List report files
         run: |
           echo "Report directory: /github/workspace"
-          ls -R /github/workspace
-
+          echo ${{ github.workspace }}
 
