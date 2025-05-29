@@ -22,7 +22,6 @@ jobs:
             --disableRetireJS
             --scan "**/*.java"
             --format HTML
-          out: depcheck-report
 
       # ─────────────── Show the report content ─────────────
       - name: List report files
