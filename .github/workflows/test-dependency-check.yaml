@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:   # run it manually from the Actions tab
 
-permissions: [read-all, write-all]
+permissions: write-all
 
 jobs:
   scan:
