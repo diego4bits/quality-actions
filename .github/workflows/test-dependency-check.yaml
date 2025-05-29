@@ -3,7 +3,7 @@ name: Dependency-Check – Test run
 on:
   workflow_dispatch:
   push:   # run it manually from the Actions tab
-permissions: write-all
+  permissions: {write-all, read-all}
 jobs:
   scan:
     runs-on: ubuntu-latest
@@ -26,37 +26,7 @@ jobs:
       # ─────────────── Show the report content ─────────────
       - name: List report files
         run: |
-          echo "Report directory: ${{ steps.depcheck.outputs['report-path'] }}"
-          ls -R "${{ steps.depcheck.outputs['report-path'] }}"
+          echo "Report directory: /github/workspace"
+          ls -R /github/workspace
 
-      - name: Print JSON report
-        if: always()
-        run: |
-          json_file=$(find "${{ steps.depcheck.outputs['report-path'] }}" -name "*.json" -print -quit)
-          if [ -n "$json_file" ]; then
-            echo "::group::JSON report ($json_file)"
-            cat "$json_file"
-            echo "::endgroup::"
-          fi
 
-      - name: Print XML report
-        if: always()
-        run: |
-          xml_file=$(find "${{ steps.depcheck.outputs['report-path'] }}" -name "*.xml" -print -quit)
-          if [ -n "$xml_file" ]; then
-            echo "::group::XML report ($xml_file)"
-            cat "$xml_file"
-            echo "::endgroup::"
-          fi
-
-      - name: Print first 50 lines of HTML report
-        if: always()
-        run: |
-          html_file=$(find "${{ steps.depcheck.outputs['report-path'] }}" -name "*.html" -print -quit)
-          if [ -n "$html_file" ]; then
-            echo "::group::HTML report preview ($html_file)"
-            head -n 50 "$html_file"
-            echo
-            echo "... (full HTML skipped – open artifact instead)"
-            echo "::endgroup::"
-          fi
