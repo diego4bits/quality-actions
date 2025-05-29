@@ -9,10 +9,13 @@ set -euo pipefail
 
 scan_args="$1"
 out_path="${OUT_PATH:-dependency-check-report}"
+mapfile -t args <<< $scanargs
 
 # Run the scanner, forcing its --out to the explicit value.
 # shellcheck disable=SC2086  # we *want* word splitting for scan_args
-eval "/usr/share/dependency-check/bin/dependency-check.sh $scan_args --out \"${out_path}\""
+exec /usr/share/dependency-check/bin/dependency-check.sh \
+     "${args[@]}" \
+     --out "$out_path"
 exit_code=$?
 
 # Surface the report location to later workflow steps
