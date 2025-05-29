@@ -4,10 +4,8 @@ set -euo pipefail
 scan_args="$1"
 out_path="${OUT_PATH:-dependency-check-report}"
 
-readarray -t ARGS <<< "$scan_args"
-
 /usr/share/dependency-check/bin/dependency-check.sh \
-      "${ARGS[@]}" \
+      $scan_args \
       --out "$out_path"
 exit_code=$? 
 
