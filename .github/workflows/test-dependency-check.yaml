@@ -14,7 +14,7 @@ jobs:
       # ─────────────── Run the custom Action ───────────────
       - name: OWASP Dependency-Check
         id: depcheck
-        uses: ./.github/actions/dependency-check        # if the Action lives in this repo;
+        uses: ./.github/actions/dependency-check      # if the Action lives in this repo;
                               # otherwise use   owner/repo@vX
         with:
           scan-args: |
