@@ -1,6 +1,6 @@
 # .github/actions/dependency-check/Dockerfile
 FROM owasp/dependency-check:7.4.4
-
+USER root
 WORKDIR /opt/action
 COPY --chmod=0755 entrypoint.sh .
 
