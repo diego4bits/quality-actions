@@ -3,7 +3,9 @@ name: Dependency-Check – Test run
 on:
   workflow_dispatch:
   push:   # run it manually from the Actions tab
-  permissions: {write-all, read-all}
+  permissions: |
+    write-all
+    read-all
 jobs:
   scan:
     runs-on: ubuntu-latest
