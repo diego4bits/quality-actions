@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-scan_args="$1"
-out_path="${OUT_PATH:-dependency-check-report}"
+scan_args="$INPUT_SCAN_ARGS"
+out_path="/github/workspace"
 
 /usr/share/dependency-check/bin/dependency-check.sh \
       $scan_args \
-      --out "$out_path"
+      --out $out_path
 exit_code=$? 
 
 
