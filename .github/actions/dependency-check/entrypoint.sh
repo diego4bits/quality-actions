@@ -6,7 +6,7 @@ out_path="/github/workspace"
 touch prueba.txt
 /usr/share/dependency-check/bin/dependency-check.sh \
       $scan_args \
-      --out " "
+      --out $out_path
 exit_code=$? 
 
 
