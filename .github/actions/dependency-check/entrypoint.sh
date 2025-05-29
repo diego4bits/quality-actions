@@ -6,7 +6,7 @@ out_path="/github/workspace"
 
 /usr/share/dependency-check/bin/dependency-check.sh \
       $scan_args \
-      --out $out_path
+      
 exit_code=$? 
 
 
