@@ -22,8 +22,6 @@ jobs:
             --disableRetireJS
             --scan "**/*.java"
             --format HTML
-            --format JSON
-            --format XML
           out: depcheck-report
 
       # ─────────────── Show the report content ─────────────
