@@ -19,7 +19,6 @@ jobs:
                               # otherwise use   owner/repo@vX
         with:
           scan-args: |
-            --noupdate
             --disableRetireJS
             --scan "**/*.java"
             --format HTML
