@@ -1,7 +1,9 @@
 name: Manual SonarQube Analysis for Pre-Built Project
 
 # Cambiado para activación manual (workflow_dispatch)
-on: workflow_dispatch
+on: 
+  workflow_dispatch:
+  push:
 
 jobs:
   analyze_with_sonarqube:
@@ -11,8 +13,8 @@ jobs:
     # Define variables de entorno para sonar-project.properties
     # Estas se derivan de tu pom.xml
     env:
-      WORKFLOW_SONAR_PROJECT_KEY: "com.jfrog:my-jfrog-app" # groupId:artifactId de tu pom.xml
-      WORKFLOW_SONAR_PROJECT_NAME: "my-jfrog-app"         # artifactId de tu pom.xml
+      WORKFLOW_SONAR_PROJECT_KEY: "quality-actions" # groupId:artifactId de tu pom.xml
+      WORKFLOW_SONAR_PROJECT_NAME: "quality-actions"         # artifactId de tu pom.xml
       WORKFLOW_SONAR_PROJECT_VERSION: "1.0.0-SNAPSHOT"    # version de tu pom.xml
 
     steps:
