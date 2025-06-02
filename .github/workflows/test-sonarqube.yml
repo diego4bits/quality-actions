@@ -1,4 +1,4 @@
-name: Manual SonarQube Analysis for Pre-Built Project
+name: Manual SonarQube Analysis for Pre-Built Project - Automatic Analysis Disabled
 
 # Cambiado para activación manual (workflow_dispatch)
 on: 
