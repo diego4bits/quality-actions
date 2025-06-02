@@ -2,7 +2,7 @@ name: Dependency-Check – Test run
 
 on:
   workflow_dispatch:
-  push:   # run it manually from the Actions tab
+  #push:   # run it manually from the Actions tab
 
 permissions: write-all
 

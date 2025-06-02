@@ -1,0 +1,65 @@
+name: Manual SonarQube Analysis for Pre-Built Project
+
+# Cambiado para activación manual (workflow_dispatch)
+on: workflow_dispatch
+
+jobs:
+  analyze_with_sonarqube:
+    name: Analyze with SonarQube
+    runs-on: ubuntu-latest
+
+    # Define variables de entorno para sonar-project.properties
+    # Estas se derivan de tu pom.xml
+    env:
+      WORKFLOW_SONAR_PROJECT_KEY: "com.jfrog:my-jfrog-app" # groupId:artifactId de tu pom.xml
+      WORKFLOW_SONAR_PROJECT_NAME: "my-jfrog-app"         # artifactId de tu pom.xml
+      WORKFLOW_SONAR_PROJECT_VERSION: "1.0.0-SNAPSHOT"    # version de tu pom.xml
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # fetch-depth: 0 es crucial para que SonarQube pueda analizar correctamente
+          # el código nuevo, especialmente en Pull Requests (aunque con workflow_dispatch es menos crítico para PRs).
+          fetch-depth: 0
+
+      - name: Set up JDK 11 (for SonarScanner)
+        uses: actions/setup-java@v4
+        with:
+          # El SonarScanner CLI requiere Java para ejecutarse.
+          # Usamos Java 11 basado en la configuración de tu proyecto.
+          java-version: '17'
+          distribution: 'temurin'
+
+      # NOTA: Si tu pom.xml y código fuente están dentro de un subdirectorio (ej: ACTUAL-TBELIL165)
+      # en tu repositorio, necesitarás añadir 'working-directory: ./ACTUAL-TBELIL165'
+      # al paso 'Create sonar-project.properties'.
+
+      - name: Create sonar-project.properties
+        run: |
+          echo "sonar.projectKey=${{ env.WORKFLOW_SONAR_PROJECT_KEY }}" > sonar-project.properties
+          echo "sonar.projectName=${{ env.WORKFLOW_SONAR_PROJECT_NAME }}" >> sonar-project.properties
+          echo "sonar.projectVersion=${{ env.WORKFLOW_SONAR_PROJECT_VERSION }}" >> sonar-project.properties
+          
+          # Rutas al código fuente y de prueba.
+          echo "sonar.sources=main/java" >> sonar-project.properties # Tus fuentes están en main/java
+          echo "sonar.tests=test/java" >> sonar-project.properties     # Tus tests están en test/java
+          
+          # Ruta a los binarios compilados.
+          # ¡¡IMPORTANTE!! Asegúrate de que la ruta 'target/classes' (o la correcta para tu proyecto)
+          # contenga los archivos .class compilados ANTES de este paso.
+          echo "sonar.java.binaries=target/classes" >> sonar-project.properties
+          
+          # Codificación del proyecto.
+          echo "sonar.sourceEncoding=UTF-8" >> sonar-project.properties
+        # working-directory: ./ACTUAL-TBELIL165 # Descomenta si tu proyecto está en un subdirectorio
+
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          SONAR_ORGANIZATION: ${{ secrets.SONAR_ORGANIZATION }} # Añadido para tu organización
+          # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Necesario para la decoración de Pull Requests en SonarCloud
+        # with:
+        #   projectBaseDir: ./ACTUAL-TBELIL165 # Descomenta si tu proyecto está en un subdirectorio
