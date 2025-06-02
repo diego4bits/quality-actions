@@ -51,7 +51,7 @@ jobs:
           # Ruta a los binarios compilados.
           # ¡¡IMPORTANTE!! Asegúrate de que la ruta 'target/classes' (o la correcta para tu proyecto)
           # contenga los archivos .class compilados ANTES de este paso.
-          echo "sonar.java.binaries=target/classes" >> sonar-project.properties
+          echo "sonar.java.binaries=target/" >> sonar-project.properties
           
           # Codificación del proyecto.
           echo "sonar.sourceEncoding=UTF-8" >> sonar-project.properties
