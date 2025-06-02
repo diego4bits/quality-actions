@@ -42,6 +42,7 @@ jobs:
           echo "sonar.projectKey=${{ env.WORKFLOW_SONAR_PROJECT_KEY }}" > sonar-project.properties
           echo "sonar.projectName=${{ env.WORKFLOW_SONAR_PROJECT_NAME }}" >> sonar-project.properties
           echo "sonar.projectVersion=${{ env.WORKFLOW_SONAR_PROJECT_VERSION }}" >> sonar-project.properties
+          echo "sonar.projectVersion=diego4bits" >> sonar-project.properties
           
           # Rutas al código fuente y de prueba.
           echo "sonar.sources=main/java" >> sonar-project.properties # Tus fuentes están en main/java
